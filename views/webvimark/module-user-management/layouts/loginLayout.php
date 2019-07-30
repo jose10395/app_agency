@@ -9,6 +9,7 @@ use yii\helpers\Url;
 /* @var $content string */
 
 $this->title = UserManagementModule::t('front', 'Authorization');
+$ruta_favicon=Url::base(true).'/favicondcl.ico';
 BootstrapAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -19,6 +20,7 @@ BootstrapAsset::register($this);
 	<meta charset="<?= Yii::$app->charset ?>" />
 	<meta name="robots" content="noindex, nofollow">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/ico" href="<?=$ruta_favicon?>"> 
 	<?= Html::csrfMetaTags() ?>
 	<title>DCL II APP</title>
 	<?php $this->head() ?>
