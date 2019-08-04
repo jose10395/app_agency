@@ -1,0 +1,27 @@
+@media (min-width: 992px) {
+    .footer{
+      height: 6% !important;
+    }
+  
+    #footer-by{
+      padding-left:1px !important;
+      text-align:left !important;
+    }
+    #footer-copyright{
+      padding-right:1px !important;
+      text-align:right !important;
+    }
+  }
+  
+  @media (min-width: 768px) and (max-width: 991px) {
+    .footer{
+      height: 11% !important;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .footer{
+      height: 11% !important;
+    }
+  }
+  

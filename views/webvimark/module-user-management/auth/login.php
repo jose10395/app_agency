@@ -77,14 +77,15 @@ $background = Url::base() . '/imgs/fondo_app_login.jpg';
 $css = <<<CSS
 html, body {
 	background: #eee;
-	-webkit-box-shadow: inset 0 0 100px rgba(0,0,0,.5);
-	box-shadow: inset 0 0 100px rgba(0,0,0,.5);
+	/* -webkit-box-shadow: inset 0 0 100px rgba(0,0,0,.5);
+	box-shadow: inset 0 0 100px rgba(0,0,0,.5); */
 	height: 100%;
-	min-height: 100%;
-	position: relative;
+	/*width: 100%; */
+	/* position: relative; */	
 	z-index: 1;	
-	background-image : url($background);	
-	background-size: cover !important;
+	background-image : url($background) ;	
+	background-size: contain !important;
+	background-repeat: no-repeat;
 	-webkit-background-size: cover !important;
     -moz-background-size: cover !important;
 	-o-background-size: cover !important;	
@@ -92,7 +93,7 @@ html, body {
 }
 #login-wrapper {
 	position: relative;
-	top: 5%;
+	top: 8%;
 }
 #login-wrapper .registration-block {
 	margin-top: 15px;

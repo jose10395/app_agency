@@ -1,24 +1,77 @@
 <?php
 
 /* @var $this yii\web\View */
+
 use yii\helpers\Url;
+
 $this->title = 'DCL II APP';
 ?>
 <!-- <div class="row">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header card-header-icon card-header-rose">
-                <div class="card-icon">
-                    <i class="material-icons">language</i>
-                </div>
+    <div class="col-md-4">
+        <div class="card card-stats">
+            <div class="card-header" data-background-color="orange">
+                <i class="material-icons">content_copy</i>
             </div>
-            <div class="card-body">
-                <h4 class="card-title">Here is the Icon</h4>
-                The place is close to Barceloneta Beach and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night life in Barcelona...
+            <div class="card-content">
+                <p class="category">Used Space</p>
+                <h3 class="card-title">49/50<small>GB</small></h3>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons text-danger">warning</i> <a href="#pablo">Get More Space...</a>
+                </div>
             </div>
         </div>
     </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header card-header-tabs" data-background-color="blue">
+                <div class="nav-tabs-navigation">
+                    <div class="nav-tabs-wrapper">
+                        <span class="nav-tabs-title">Tasks:</span>
+                        <ul class="nav nav-tabs" data-tabs="tabs">
+                            <li class="active">
+                                <a href="#profile" data-toggle="tab">
+                                    <i class="material-icons">bug_report</i>
+                                    First
+                                    <div class="ripple-container"></div></a>
+                            </li>
+                            <li class="">
+                                <a href="#messages" data-toggle="tab">
+                                    <i class="material-icons">code</i>
+                                    Second
+                                    <div class="ripple-container"></div></a>
+                            </li>
+                            <li class="">
+                                <a href="#settings" data-toggle="tab">
+                                    <i class="material-icons">cloud</i>
+                                    Third
+                                    <div class="ripple-container"></div></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-content">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="profile">
+                        First Tab
+                    </div>
+                    <div class="tab-pane" id="messages">
+                        Second Tab
+                    </div>
+                    <div class="tab-pane" id="settings">
+                        Third Tab
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
 </div> -->
+
 
 <?php
 
