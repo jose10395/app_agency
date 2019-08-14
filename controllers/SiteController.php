@@ -9,6 +9,9 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Urbanizacion;
+use app\models\UrbanizacionAreaSocial;
+use app\models\UrbanizacionEtapa;
 
 class SiteController extends Controller
 {
@@ -18,7 +21,7 @@ class SiteController extends Controller
     public function behaviors()
     {
         return [
-            'ghost-access'=> [
+            'ghost-access' => [
                 'class' => 'webvimark\modules\UserManagement\components\GhostAccessControl',
             ],
         ];
@@ -66,7 +69,15 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        //return $this->render('index');
+        $urbanizaciones = (int) Urbanizacion::find()->count('*');
+        $etapas = (int) UrbanizacionEtapa::find()->count('*');
+        $areas_sociales = UrbanizacionAreaSocial::find()->count('*');
+        return $this->render('index', [
+            'urbanizaciones'=>$urbanizaciones,
+            'etapas'=>$etapas,
+            'areas_sociales'=>$areas_sociales
+        ]);
     }
 
     /**
@@ -129,5 +140,30 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionAdmin()
+    {
+        $urbanizaciones = (int) Urbanizacion::find()->count('*');
+        $etapas = (int) UrbanizacionEtapa::find()->count('*');
+        $areas_sociales = UrbanizacionAreaSocial::find()->count('*');
+        return $this->render('config/admin', [
+            'urbanizaciones'=>$urbanizaciones,
+            'etapas'=>$etapas,
+            'areas_sociales'=>$areas_sociales
+        ]);
+    }
+    
+    public function actionCanchas(){
+        return $this->render('design/_canchas',[]);
+    }
+    public function actionAreasocial(){
+        return $this->render('design/_areasocial',[]);
+    }
+    public function actionCuenta(){
+        return $this->render('design/_estadocuenta',[]);
+    }
+    public function actionPagos(){
+        return $this->render('design/_pagos',[]);
     }
 }

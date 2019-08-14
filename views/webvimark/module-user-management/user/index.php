@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				</div>
 
 				<div class="col-sm-6 text-right">
-					<?= GridPageSize::widget(['pjaxId'=>'user-grid-pjax']) ?>
+					<?php GridPageSize::widget(['pjaxId'=>'user-grid-pjax']) ?>
 				</div>
 			</div>
 
@@ -59,17 +59,17 @@ $this->params['breadcrumbs'][] = $this->title;
 					'lastPageLabel'=>'>>',
 					'firstPageLabel'=>'<<',
 				],
-				'filterModel' => $searchModel,
-				'layout'=>'{items}<div class="row"><div class="col-sm-8">{pager}</div><div class="col-sm-4 text-right">{summary}'.GridBulkActions::widget([
-						'gridId'=>'user-grid',
-						'actions'=>[
-							Url::to(['bulk-activate', 'attribute'=>'status'])=>GridBulkActions::t('app', 'Activate'),
-							Url::to(['bulk-deactivate', 'attribute'=>'status'])=>GridBulkActions::t('app', 'Deactivate'),
-							'----'=>[
-								Url::to(['bulk-delete'])=>GridBulkActions::t('app', 'Delete'),
-							],
-						],
-					]).'</div></div>',
+				//'filterModel' => $searchModel,
+				// 'layout'=>'{items}<div class="row"><div class="col-sm-8">{pager}</div><div class="col-sm-4 text-right">{summary}'.GridBulkActions::widget([
+				// 		'gridId'=>'user-grid',
+				// 		'actions'=>[
+				// 			Url::to(['bulk-activate', 'attribute'=>'status'])=>GridBulkActions::t('app', 'Activate'),
+				// 			Url::to(['bulk-deactivate', 'attribute'=>'status'])=>GridBulkActions::t('app', 'Deactivate'),
+				// 			'----'=>[
+				// 				Url::to(['bulk-delete'])=>GridBulkActions::t('app', 'Delete'),
+				// 			],
+				// 		],
+				// 	]).'</div></div>',
 				'columns' => [
 					['class' => 'yii\grid\SerialColumn', 'options'=>['style'=>'width:10px'] ],
 

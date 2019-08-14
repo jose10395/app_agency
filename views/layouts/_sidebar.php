@@ -27,10 +27,10 @@ use ramosisw\CImaterial\widgets\Menu;
                                 <div class="col-md-9 col-xs-8" style="margin-top:12px !important">{label}</></div></div></a>',
             'submenuTemplate' => "\n<ul class='nav tree' {show}>\n{items}\n</ul>\n",
             'items' => [
-                ['label' => 'Inicio', 'url' => ['/site'], 'icon' => 'home'],
-                ['label' => 'Etapas', 'url' => ['/site/about'], 'icon' => 'dashboard'],
+                ['label' => 'Inicio', 'url' => ['/site/index'], 'icon' => 'home'],
+                ['label' => 'Etapas', 'url' => ['/urbanizacion-etapa'], 'icon' => 'dashboard'],
                 ['label' => 'Usuarios', 'url' => ['/user-management/user'], 'icon' => 'account_circle'],
-                ['label' => 'Listado de Invitados', 'url' => ['/site/about'], 'icon' => 'list_alt'],
+                ['label' => 'Listado de Invitados', 'url' => ['/invitados'], 'icon' => 'list_alt'],
                 [
                     'label' => 'Reservas', 'url' => ['/'], 'icon' => 'event_available',
                     'template' => '<a class="tree-toggle" href="{url}"><div class="row">                               
@@ -39,11 +39,11 @@ use ramosisw\CImaterial\widgets\Menu;
                                 <div class="col-md-1 col-xs-1"><span style="margin-left:-60px;"><i class="material-icons">arrow_drop_down</i></span></div>
                                 </div></a>',
                     'items' => [
-                        ['label' => 'Canchas', 'url' => ['/site/about'], 'icon' => 'note_add'],
-                        ['label' => 'Area Social', 'url' => ['/site/about'], 'icon' => 'group'],
+                        ['label' => 'Canchas', 'url' => ['/site/canchas'], 'icon' => 'note_add'],
+                        ['label' => 'Area Social', 'url' => ['/site/areasocial'], 'icon' => 'group'],
                     ]
                 ],
-                ['label' => 'Estado de Cuenta', 'url' => ['/site/about'], 'icon' => 'credit_card'],
+                ['label' => 'Estado de Cuenta', 'url' => ['/site/cuenta'], 'icon' => 'credit_card'],
                 [
                     'label' => 'Revisar', 'url' => ['/'], 'icon' => 'assignment_turned_in',
                     'template' => '<a class="tree-toggle" href="{url}"><div class="row">                               
@@ -56,8 +56,8 @@ use ramosisw\CImaterial\widgets\Menu;
                         ['label' => 'Eventos en Etapa', 'url' => ['/site/about'], 'icon' => 'assignment'],
                     ]
                 ],
-                ['label' => 'Pagos', 'url' => ['/site/about'], 'icon' => 'attach_money'],
-                ['label' => 'Sugerencias', 'url' => ['/site/about'], 'icon' => 'feedback'],
+                ['label' => 'Pagos', 'url' => ['/site/pagos'], 'icon' => 'attach_money'],
+                ['label' => 'Sugerencias', 'url' => ['/site/contact'], 'icon' => 'feedback'],
                 ['label' => 'Salir','url'=>['site/logout'],'icon'=>'meeting_room',['data-method'=>'post']]                
             ],
         ]);

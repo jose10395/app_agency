@@ -63,12 +63,37 @@ $this->registerCss($css);
                         </a>
                         <a href="#" class="navbar-brand" id="sidebar-toggle" style="margin-right:10px !important;"><i class="fa fa-bars"></i></a>
                     </div>
+                    <div class="collapse navbar-collapse">
+                        <!-- <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="<?= Url::to(['/site/admin']) ?>" class="dropdown">
+                                    <i class="material-icons">build</i>
+                                    <p class="hidden-lg hidden-md">Dashboard</p>
+                                </a>                                
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-users" aria-hidden="true"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><?= Html::a('Usuarios', ['/user-management/user']) ?></li>
+                                    <li><?= Html::a('Roles', ['/user-management/role/index']) ?></li>
+                                    <li><?= Html::a('Permisos', ['/user-management/permission/index']) ?></li>
+                                    <li><?= Html::a('Grupos de Permisos', ['/user-management/auth-item-group/index']) ?></li>
+                                    <li><?= Html::a('Visit Log', ['/user-management/user-visit-log/index']) ?></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <?= Html::a('<span style="font-size:14px">Salir</span>&nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i>', ['/site/logout', ['linkOptions' => ['data-method' => 'post']]]) ?>
+                            </li>
+                        </ul> -->
+                    </div>
                 </div>
             </nav>
         </div>
 
-        <div class="main-panel" style="width:100%;float:none !important">
-            <div class="content">
+        <div class="main-panel" style="width:100%;float:none !important;">
+            <div class="content" style="padding:0px !important;">
                 <div class="container-fluid">
                     <?= $content ?>
                 </div>
