@@ -42,8 +42,8 @@ class UrbanizacionAreaSocial extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'urbanizacion_etapafk' => 'Urbanizacion Etapafk',
-            'nombre' => 'Nombre',
+            'urbanizacion_etapafk' => 'Urbanizacion Etapa',
+            'nombre' => 'Nombre Area Social',
             'created_at' => 'Created At',
         ];
     }

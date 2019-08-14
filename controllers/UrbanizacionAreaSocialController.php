@@ -5,9 +5,11 @@ namespace app\controllers;
 use Yii;
 use app\models\UrbanizacionAreaSocial;
 use app\models\search\UrbanizacionAreaSocialSearch;
+use app\models\UrbanizacionEtapa;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 
 /**
  * UrbanizacionAreaSocialController implements the CRUD actions for UrbanizacionAreaSocial model.
@@ -65,13 +67,18 @@ class UrbanizacionAreaSocialController extends Controller
     public function actionCreate()
     {
         $model = new UrbanizacionAreaSocial();
+        $etapas_query = UrbanizacionEtapa::find()->all();
+        $etapas = ArrayHelper::map($etapas_query,'id','etapa_nombre');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
+            //return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'etapas'=>$etapas
         ]);
     }
 
