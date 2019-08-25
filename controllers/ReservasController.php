@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Reservas;
 use app\models\ReservasSearch;
+use app\models\UrbanizacionEtapa;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -62,6 +63,7 @@ class ReservasController extends Controller {
         $areas_sociales = \app\models\UrbanizacionAreaSocial::find()
                         ->where(['urbanizacion_etapafk' => $usuario->urbanizacion_etapafk])->all();
         $list_areas = \yii\helpers\ArrayHelper::map($areas_sociales, 'id', 'nombre');
+        $etapa = UrbanizacionEtapa::findOne($usuario->urbanizacion_etapafk);
         $urbanizacion = \app\models\Urbanizacion::find()
                 ->innerJoin('urbanizacion_etapa', 'urbanizacion.id=urbanizacion_etapa.urbanizacionfk')
                 ->where(['urbanizacion_etapa.id' => $usuario->urbanizacion_etapafk])
@@ -82,7 +84,8 @@ class ReservasController extends Controller {
                     'model' => $model,
                     'list_areas' => $list_areas,
                     'urbanizacion' => $urbanizacion,
-                    'nro_reserva' => $nro_reserva
+                    'nro_reserva' => $nro_reserva,
+                    'etapa'=>$etapa
         ]);
     }
 

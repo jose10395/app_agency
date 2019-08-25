@@ -12,6 +12,8 @@ use app\models\ContactForm;
 use app\models\Urbanizacion;
 use app\models\UrbanizacionAreaSocial;
 use app\models\UrbanizacionEtapa;
+use app\models\UserProfile;
+use yii\helpers\Json;
 
 class SiteController extends Controller
 {
@@ -69,6 +71,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $user = UserProfile::find()->where(['userid'=>Yii::$app->user->getId()])->one();
+        
         //return $this->render('index');
         $urbanizaciones = (int) Urbanizacion::find()->count('*');
         $etapas = (int) UrbanizacionEtapa::find()->count('*');
@@ -76,7 +80,8 @@ class SiteController extends Controller
         return $this->render('index', [
             'urbanizaciones'=>$urbanizaciones,
             'etapas'=>$etapas,
-            'areas_sociales'=>$areas_sociales
+            'areas_sociales'=>$areas_sociales,
+            'user'=>$user
         ]);
     }
 
@@ -165,5 +170,21 @@ class SiteController extends Controller
     }
     public function actionPagos(){
         return $this->render('design/_pagos',[]);
+    }
+
+    public function actionEtapas()
+    {
+        if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $urbanizacion_id = $parents[0];
+                $etapas = UrbanizacionEtapa::find()->select(['id', 'etapa_nombre as name'])
+                    ->where(['urbanizacionfk' => $urbanizacion_id])->asArray()->all();
+
+                echo Json::encode(['output' => $etapas, 'selected' => '']);
+                return;
+            }
+        }
+        echo Json::encode(['output' => '', 'selected' => 0]);
     }
 }

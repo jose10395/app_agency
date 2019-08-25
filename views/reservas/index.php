@@ -16,7 +16,7 @@ $isUsuario = \webvimark\modules\UserManagement\models\User::hasRole(['RESIDENTE'
     <h1><?= Html::encode($this->title) ?></h1>
     <div class="panel panel-default" style="padding: 10px !important">
         <p>
-            <?= \webvimark\modules\UserManagement\components\GhostHtml::a('Nueva Reserva', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= \webvimark\modules\UserManagement\components\GhostHtml::a('Nueva Reserva', ['create'], ['class' => 'btn btn-success','style'=>'color:white !important']) ?>
         </p>
 
         <?=
@@ -50,8 +50,24 @@ $isUsuario = \webvimark\modules\UserManagement\models\User::hasRole(['RESIDENTE'
                         return $area_social->nombre;
                     }
                 ],
-                'hora_inicio',
-                'hora_fin',
+                [
+                    'label'=>'Fecha',
+                    'value'=>function($data){
+                        return date('Y-m-d',strtotime($data->fecha_reserva));
+                    }
+                ],
+                [
+                    'label'=>'Hora Inicio',
+                    'value'=>function($data){
+                        return date('H:i',strtotime($data->hora_inicio));
+                    }
+                ],
+                [
+                    'label'=>'Hora Inicio',
+                    'value'=>function($data){
+                        return date('H:i',strtotime($data->hora_fin));
+                    }
+                ]
             //'celular',
             //'created_at',
             //['class' => 'yii\grid\ActionColumn'],

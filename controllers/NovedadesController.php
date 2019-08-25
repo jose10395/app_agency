@@ -5,9 +5,16 @@ namespace app\controllers;
 use Yii;
 use app\models\Novedades;
 use app\models\NovedadesSearch;
+use app\models\Urbanizacion;
+use app\models\UrbanizacionEtapa;
+use app\models\UserProfile;
+use webvimark\modules\UserManagement\models\User;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
 
 /**
  * NovedadesController implements the CRUD actions for Novedades model.
@@ -19,7 +26,7 @@ class NovedadesController extends Controller
      */
     public function behaviors()
     {
-       return [
+        return [
             'ghost-access' => [
                 'class' => 'webvimark\modules\UserManagement\components\GhostAccessControl',
             ],
@@ -32,11 +39,18 @@ class NovedadesController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new NovedadesSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $isMaster = \webvimark\modules\UserManagement\models\User::hasRole(['MASTER']);
+        if (Yii::$app->user->isSuperadmin || $isMaster) {
+            $query = Novedades::find()->orderBy('created_at desc');
+        } else {
+            $user = UserProfile::find()->where(['userid' => Yii::$app->user->getId()])->one();
+            $query = Novedades::find()->where(['urbanizacion_etapafk' => $user->urbanizacion_etapafk])->orderBy('created_at desc');
+        }
 
+        $dataProvider =  new ActiveDataProvider([
+            'query' => $query
+        ]);
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -62,15 +76,32 @@ class NovedadesController extends Controller
     public function actionCreate()
     {
         $model = new Novedades();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $urbanizaciones = Urbanizacion::find()->all();
+        $urbanizacion_list = ArrayHelper::map($urbanizaciones, 'id', 'urbanizacion_nombre');
+        if ($model->load(Yii::$app->request->post())) {
+            //$user = UserProfile::find()->where(['userid' => Yii::$app->user->getId()])->one();
+            $comprobante = \yii\web\UploadedFile::getInstance($model, 'archivo');
+            if ($comprobante != null) {
+                $nombre_archivo = time() . "-" . uniqid();
+                $model->archivo = \yii\web\UploadedFile::getInstance($model, 'archivo');
+                $model->archivo->saveAs("archivos/novedades/" . $nombre_archivo . "." . $model->archivo->extension);
+                $model->archivo = "archivos/novedades/" . $nombre_archivo . "." . $model->archivo->extension;
+            }
+            //$model->urbanizacion_etapafk = $user->urbanizacion_etapafk;
+            if (!$model->save()) {
+                print_r($model->getErrors());
+                return;
+            }
+            return $this->redirect('index');
         }
 
         return $this->render('create', [
             'model' => $model,
+            'urbanizacion_list' => $urbanizacion_list
         ]);
     }
+
+    
 
     /**
      * Updates an existing Novedades model.

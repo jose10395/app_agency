@@ -307,7 +307,14 @@ body {
   padding-bottom: 30px;
   position: relative;
   min-height: 100%;
-  font-family: 'Century Gothic' !important;
+  font-family: 'Century Gothic !important';
+}
+
+@font-face {
+  font-family: 'Modern No. 20';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Modern No. 20'), url('MOD20.woff') format('woff');
 }
 
 a {

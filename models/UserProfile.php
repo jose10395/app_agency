@@ -69,5 +69,8 @@ class UserProfile extends \yii\db\ActiveRecord
     public function getUser()
 	{
 		return $this->hasOne(User::className(), ['id' => 'userid']);
-	}
+    }
+    public function getFullname(){
+        return strtoupper($this->apellidos.' '.$this->nombres);
+    }
 }

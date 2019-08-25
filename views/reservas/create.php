@@ -17,7 +17,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'model' => $model,
             'list_areas' => $list_areas,
             'urbanizacion' => $urbanizacion,
-            'nro_reserva'=>$nro_reserva
+            'nro_reserva'=>$nro_reserva,
+            'etapa'=>$etapa
         ])
         ?>
     </div>

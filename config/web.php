@@ -41,6 +41,7 @@ $config = [
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
+            'class' => '\bedezign\yii2\audit\components\web\ErrorHandler',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',

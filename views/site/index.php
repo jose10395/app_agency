@@ -6,6 +6,10 @@ use yii\helpers\Url;
 
 $this->title = 'DCL II APP';
 ?>
+<div class="row">
+    <h2 style="margin:0px !important;font-family:'Modern No. 20'" class="text-center">Bienvenido <strong><?= $user->fullname ?></strong> a APP DCL</h2>
+</div>
+<hr>
 <!-- <div class="row">
     <div class="col-md-4">
         <div class="card card-stats">
@@ -79,7 +83,7 @@ $this->title = 'DCL II APP';
             </div>
             <div class="card-content">
                 <p class="category">Urbanizaciones</p>
-                <h3 class="card-title"><?=$urbanizaciones?></h3>
+                <h3 class="card-title"><?= $urbanizaciones ?></h3>
             </div>
             <div class="card-footer">
                 <div class="stats">
@@ -95,7 +99,7 @@ $this->title = 'DCL II APP';
             </div>
             <div class="card-content">
                 <p class="category">Etapas</p>
-                <h3 class="card-title"><?=$etapas?></h3>
+                <h3 class="card-title"><?= $etapas ?></h3>
             </div>
             <div class="card-footer">
                 <div class="stats">
@@ -111,7 +115,7 @@ $this->title = 'DCL II APP';
             </div>
             <div class="card-content">
                 <p class="category">Áreas Sociales</p>
-                <h3 class="card-title"><?=$areas_sociales?></h3>
+                <h3 class="card-title"><?= $areas_sociales ?></h3>
             </div>
             <div class="card-footer">
                 <div class="stats">

@@ -33,7 +33,7 @@ class Reservas extends \yii\db\ActiveRecord
     {
         return [
             [['usuariofk', 'urbanizacion_area_socialfk'], 'integer'],
-            [['hora_inicio', 'hora_fin', 'created_at'], 'safe'],
+            [['hora_inicio', 'hora_fin', 'created_at','fecha_reserva'], 'safe'],
             [['nro'], 'string', 'max' => 40],
             [['celular'], 'string', 'max' => 20],
         ];

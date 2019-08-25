@@ -56,7 +56,7 @@ $this->registerCss($css);
         <?= $this->render('_sidebar', []); ?>
         <div id="navbar-wrapper">
             <nav class="navbar">
-                <div class="container-fluid">
+                <div class="container-fluid" style="z-index:2">
                     <div class="navbar-header" style="display:none;">
                         <a href="<?= Url::to(['/']) ?>" class="simple-text logo-normal" style="margin-left:10px !important;" id="logo-responsive">
                             <?= Html::img("@web/imgs/logo_slogan.png", ['width' => '140']) ?>
@@ -65,11 +65,11 @@ $this->registerCss($css);
                     </div>
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav navbar-right">
+                            <?php if (Yii::$app->user->issuperadmin) : ?>
                             <li>
                                 <a href="<?= Url::to(['/site/admin']) ?>" class="dropdown">
                                     <i class="material-icons">build</i>
-                                    <p class="hidden-lg hidden-md">Dashboard</p>
-                                </a>                                
+                                </a>
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -83,8 +83,19 @@ $this->registerCss($css);
                                     <li><?= Html::a('Visit Log', ['/user-management/user-visit-log/index']) ?></li>
                                 </ul>
                             </li>
-                            <li>
-                                <?= Html::a('<span style="font-size:14px">Salir</span>&nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i>', ['/site/logout', ['linkOptions' => ['data-method' => 'post']]]) ?>
+                            <?php endif; ?>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <?= Html::a('<span style="font-size:14px">Cambiar Contraseña</span>', ['/user-management/user/change-password','id'=>Yii::$app->user->getId()]) ?>
+                                    </li>
+                                    <li>
+                                        <?= Html::a('<span style="font-size:14px">Salir</span>&nbsp;<i style="font-size:18px" class="fa fa-sign-in pull-right"></i>', ['/site/logout', ['linkOptions' => ['data-method' => 'post']]]) ?>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                     </div>
@@ -92,7 +103,7 @@ $this->registerCss($css);
             </nav>
         </div>
 
-        <div class="main-panel" style="width:100%;float:none !important;">
+        <div class="main-panel" style="width:100%;z-index:1;height:600px;overflow:auto">
             <div class="content" style="padding:0px !important;">
                 <div class="container-fluid">
                     <?= $content ?>
