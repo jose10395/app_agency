@@ -12,6 +12,7 @@ use Yii;
  * @property string $nombre_invitado
  * @property int $usuariofk
  * @property string $created_at
+ * @property string $cedula
  */
 class Invitados extends \yii\db\ActiveRecord
 {
@@ -32,6 +33,7 @@ class Invitados extends \yii\db\ActiveRecord
             [['apellido_invitado', 'nombre_invitado'], 'string'],
             [['usuariofk'], 'integer'],
             [['created_at'], 'safe'],
+            [['cedula'], 'string', 'max' => 50],
         ];
     }
 
@@ -46,6 +48,7 @@ class Invitados extends \yii\db\ActiveRecord
             'nombre_invitado' => 'Nombre Invitado',
             'usuariofk' => 'Usuariofk',
             'created_at' => 'Created At',
+            'cedula' => 'Cedula',
         ];
     }
 }

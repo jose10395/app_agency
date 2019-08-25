@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 						<?= GhostHtml::a(
 							//'<span class="glyphicon glyphicon-plus-sign"></span> ' . UserManagementModule::t('back', 'Create'),
 							'Nuevo Usuario&nbsp;&nbsp;&nbsp;<i class="material-icons">person_add</i>',
-							['/user-management/user/create'],
+							['/user/create'],
 							['class' => 'btn btn-success','style'=>'color:#fff !important']
 						) ?>
 					</p>

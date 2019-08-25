@@ -64,7 +64,7 @@ $this->registerCss($css);
                         <a href="#" class="navbar-brand" id="sidebar-toggle" style="margin-right:10px !important;"><i class="fa fa-bars"></i></a>
                     </div>
                     <div class="collapse navbar-collapse">
-                        <!-- <ul class="nav navbar-nav navbar-right">
+                        <ul class="nav navbar-nav navbar-right">
                             <li>
                                 <a href="<?= Url::to(['/site/admin']) ?>" class="dropdown">
                                     <i class="material-icons">build</i>
@@ -86,7 +86,7 @@ $this->registerCss($css);
                             <li>
                                 <?= Html::a('<span style="font-size:14px">Salir</span>&nbsp;<i class="fa fa-sign-in" aria-hidden="true"></i>', ['/site/logout', ['linkOptions' => ['data-method' => 'post']]]) ?>
                             </li>
-                        </ul> -->
+                        </ul>
                     </div>
                 </div>
             </nav>

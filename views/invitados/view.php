@@ -2,38 +2,56 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use kartik\grid\GridView;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\Invitados */
-
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Invitados', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = "Lista de Invitados";
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="invitados-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h2><?= Html::encode($this->title) ?></h2>
+    <div class="panel panel-default" style="padding:10px">
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
+
+
+        <?=
+        GridView::widget([
+            'dataProvider' => $dataProvider,
+            'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+                //'id',            
+                [
+                    'options' => [
+                        'width' => '30%'
+                    ],
+                    'label' => 'Apellidos',
+                    'value' => function($data) {
+                        return strtoupper($data->apellido_invitado);
+                    }
+                ],
+                    [
+                    'options' => [
+                        'width' => '30%'
+                    ],
+                    'label' => 'Nombres',
+                    'value' => function($data) {
+                        return strtoupper($data->nombre_invitado);
+                    }
+                ],
+                    [
+                    'options' => [
+                        'width' => '40%'
+                    ],
+                    'label' => 'Persona a visitar',
+                    'value' => function($data) {
+                        $usuario = app\models\UserProfile::findOne($data->usuariofk);
+                        return strtoupper($usuario->apellidos . ' ' . $usuario->nombres);
+                    }
+                ],
+            //'created_at',
+            //['class' => 'yii\grid\ActionColumn'],
             ],
-        ]) ?>
-    </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'apellido_invitado:ntext',
-            'nombre_invitado:ntext',
-            'created_at',
-        ],
-    ]) ?>
-
+        ]);
+        ?>
+    </div>
 </div>

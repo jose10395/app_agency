@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Invitados;
-use app\models\search\InvitadosSearch;
+use app\models\Reservas;
+use app\models\ReservasSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * InvitadosController implements the CRUD actions for Invitados model.
+ * ReservasController implements the CRUD actions for Reservas model.
  */
-class InvitadosController extends Controller {
+class ReservasController extends Controller {
 
     /**
      * {@inheritdoc}
@@ -26,77 +26,68 @@ class InvitadosController extends Controller {
     }
 
     /**
-     * Lists all Invitados models.
+     * Lists all Reservas models.
      * @return mixed
      */
     public function actionIndex() {
         $isUsuario = \webvimark\modules\UserManagement\models\User::hasRole(['RESIDENTE']);
-        $searchModel = new InvitadosSearch();
-        $query_user = \app\models\ListaInvitados::find()->where(['usuariofk' => Yii::$app->user->getId()]);
-        $query_admin = \app\models\ListaInvitados::find();
-        $query = ($isUsuario) ? $query_user : $query_admin;
+        $searchModel = new ReservasSearch();        
+        $query_user = Reservas::find()->where(['usuariofk'=>Yii::$app->user->getId()]);
+        $query_admin = Reservas::find();
+        $query = ($isUsuario)? $query_user:$query_admin;
         $dataProvider = new \yii\data\ActiveDataProvider([
-            'query' => $query
+           'query' =>$query
         ]);
-
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
         ]);
     }
 
+    /**
+     * Displays a single Reservas model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionView($id) {
-        $invitados = Invitados::find()->where(['listainvitadosfk' => $id]);
-        $dataProvider = new \yii\data\ActiveDataProvider([
-            'query' => $invitados
-        ]);
         return $this->render('view', [
-                    'dataProvider' => $dataProvider,
                     'model' => $this->findModel($id),
         ]);
     }
 
-    /**
-     * Creates a new Invitados model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
     public function actionCreate() {
-        $model = new Invitados();
-        $lista = new \app\models\ListaInvitados();
-        if (Yii::$app->request->post()) {
+        $model = new Reservas();
+        $usuario = \app\models\UserProfile::find()->where(['userid' => Yii::$app->user->getId()])->one();
+        $areas_sociales = \app\models\UrbanizacionAreaSocial::find()
+                        ->where(['urbanizacion_etapafk' => $usuario->urbanizacion_etapafk])->all();
+        $list_areas = \yii\helpers\ArrayHelper::map($areas_sociales, 'id', 'nombre');
+        $urbanizacion = \app\models\Urbanizacion::find()
+                ->innerJoin('urbanizacion_etapa', 'urbanizacion.id=urbanizacion_etapa.urbanizacionfk')
+                ->where(['urbanizacion_etapa.id' => $usuario->urbanizacion_etapafk])
+                ->one();
 
-            $lista->load(Yii::$app->request->post());
-            $lista->usuariofk = Yii::$app->user->identity->getId();
-            $lista->save();
+        $numero_reserva = Reservas::find()->orderBy('id desc')->one();
+        $nro_reserva = ($numero_reserva != null) ? $numero_reserva->nro + 1 : 1;
 
-            $invitados = \app\models\Model::createMultiple(Invitados::class);
-            \app\models\Model::loadMultiple($invitados, Yii::$app->request->post());
-
-            foreach ($invitados as $invitado) {
-                $invitado->usuariofk = Yii::$app->user->identity->getId();
-                $invitado->listainvitadosfk = $lista->id;
-                if ($invitado->validate()) {
-                    if (!$invitado->save()) {
-                        print_r($invitado->getErrors());
-                        return;
-                    }
-                }
-            }
-            //$model->usuariofk = Yii::$app->user->identity->getId();
-            //$model->save();
-            return $this->redirect(['index']);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->usuariofk = Yii::$app->user->getId();
+            $model->nro = (string) $nro_reserva;
+            $model->save();
             //return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
                     'model' => $model,
-                    'lista' => $lista
+                    'list_areas' => $list_areas,
+                    'urbanizacion' => $urbanizacion,
+                    'nro_reserva' => $nro_reserva
         ]);
     }
 
     /**
-     * Updates an existing Invitados model.
+     * Updates an existing Reservas model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -115,7 +106,7 @@ class InvitadosController extends Controller {
     }
 
     /**
-     * Deletes an existing Invitados model.
+     * Deletes an existing Reservas model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -128,14 +119,14 @@ class InvitadosController extends Controller {
     }
 
     /**
-     * Finds the Invitados model based on its primary key value.
+     * Finds the Reservas model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Invitados the loaded model
+     * @return Reservas the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id) {
-        if (($model = Invitados::findOne($id)) !== null) {
+        if (($model = Reservas::findOne($id)) !== null) {
             return $model;
         }
 

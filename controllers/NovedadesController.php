@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Urbanizacion;
-use app\models\search\UrbanizacionSearch;
+use app\models\Novedades;
+use app\models\NovedadesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * UrbanizacionController implements the CRUD actions for Urbanizacion model.
+ * NovedadesController implements the CRUD actions for Novedades model.
  */
-class UrbanizacionController extends Controller
+class NovedadesController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -27,12 +27,12 @@ class UrbanizacionController extends Controller
     }
 
     /**
-     * Lists all Urbanizacion models.
+     * Lists all Novedades models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new UrbanizacionSearch();
+        $searchModel = new NovedadesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -42,7 +42,7 @@ class UrbanizacionController extends Controller
     }
 
     /**
-     * Displays a single Urbanizacion model.
+     * Displays a single Novedades model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -55,17 +55,16 @@ class UrbanizacionController extends Controller
     }
 
     /**
-     * Creates a new Urbanizacion model.
+     * Creates a new Novedades model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Urbanizacion();
+        $model = new Novedades();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            //return $this->redirect(['view', 'id' => $model->id]);
-            return $this->redirect(['index']);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -74,7 +73,7 @@ class UrbanizacionController extends Controller
     }
 
     /**
-     * Updates an existing Urbanizacion model.
+     * Updates an existing Novedades model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -94,7 +93,7 @@ class UrbanizacionController extends Controller
     }
 
     /**
-     * Deletes an existing Urbanizacion model.
+     * Deletes an existing Novedades model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -108,15 +107,15 @@ class UrbanizacionController extends Controller
     }
 
     /**
-     * Finds the Urbanizacion model based on its primary key value.
+     * Finds the Novedades model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Urbanizacion the loaded model
+     * @return Novedades the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Urbanizacion::findOne($id)) !== null) {
+        if (($model = Novedades::findOne($id)) !== null) {
             return $model;
         }
 

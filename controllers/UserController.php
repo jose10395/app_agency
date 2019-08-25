@@ -2,24 +2,33 @@
 
 namespace app\controllers;
 
+use app\models\AuthAssignment;
 use Yii;
-use app\models\Urbanizacion;
-use app\models\search\UrbanizacionSearch;
+use app\models\searchs\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\UserProfile;
+use webvimark\modules\UserManagement\models\rbacDB\Role;
+use webvimark\modules\UserManagement\models\User;
 
 /**
- * UrbanizacionController implements the CRUD actions for Urbanizacion model.
+ * UserController implements the CRUD actions for User model.
  */
-class UrbanizacionController extends Controller
+class UserController extends Controller
 {
     /**
      * {@inheritdoc}
      */
     public function behaviors()
     {
-       return [
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
             'ghost-access' => [
                 'class' => 'webvimark\modules\UserManagement\components\GhostAccessControl',
             ],
@@ -27,12 +36,12 @@ class UrbanizacionController extends Controller
     }
 
     /**
-     * Lists all Urbanizacion models.
+     * Lists all User models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new UrbanizacionSearch();
+        $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -42,7 +51,7 @@ class UrbanizacionController extends Controller
     }
 
     /**
-     * Displays a single Urbanizacion model.
+     * Displays a single User model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -55,26 +64,47 @@ class UrbanizacionController extends Controller
     }
 
     /**
-     * Creates a new Urbanizacion model.
+     * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Urbanizacion();
+        $model = new User();
+        $perfil = new UserProfile();
+        //$roles = new AuthAssignment();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            //return $this->redirect(['view', 'id' => $model->id]);
-            return $this->redirect(['index']);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->auth_key = $model->password;
+            $model->created_at = time();
+            $model->updated_at = time();
+            if (!$model->save()) {
+                Yii::$app->getSession()->setFlash('notificacion', ['type' => 'danger', 'message' => current($model->getErrors())[0]]);
+                return $this->redirect(['create']);
+            }
+            $perfil->load(Yii::$app->request->post());
+            $perfil->userid = $model->id;
+            $perfil->email = $model->email;
+            $perfil->save();
+
+            $rol_datos = Yii::$app->request->post('rol_usuario');
+            $roles = new AuthAssignment();
+            $roles->user_id = $model->id;
+            $roles->item_name = $rol_datos;
+            $roles->save();
+
+            return $this->redirect('user-management/user');
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+                'perfil' => $perfil,
+                //'roles' => $roles
+            ]);
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     /**
-     * Updates an existing Urbanizacion model.
+     * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -94,7 +124,7 @@ class UrbanizacionController extends Controller
     }
 
     /**
-     * Deletes an existing Urbanizacion model.
+     * Deletes an existing User model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -108,15 +138,15 @@ class UrbanizacionController extends Controller
     }
 
     /**
-     * Finds the Urbanizacion model based on its primary key value.
+     * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Urbanizacion the loaded model
+     * @return User the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Urbanizacion::findOne($id)) !== null) {
+        if (($model = User::findOne($id)) !== null) {
             return $model;
         }
 
