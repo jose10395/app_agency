@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use kartik\date\DatePicker;
 
 \yii\widgets\MaskedInputAsset::register($this);
+
 ?>
 
 <div class="reservas-form">
@@ -61,10 +62,10 @@ use kartik\date\DatePicker;
             ?>
         </div>
         <div class="col-md-2">
-            <?= $form->field($model, 'hora_inicio')->textInput(['class' => 'hora form-control']) ?>
+            <?= $form->field($model, 'hora_inicio')->textInput(['class' => 'hora form-control','onchange'=>'sumarhora.call(this)']) ?>
         </div>
         <div class="col-md-2">
-            <?= $form->field($model, 'hora_fin')->textInput(['class' => 'hora form-control']) ?>
+            <?= $form->field($model, 'hora_fin')->textInput(['class' => 'hora form-control','id'=>'hora_fin']) ?>
         </div>
         <div class="col-md-3">
             <?= $form->field($model, 'celular')->textInput(['class' => 'solonumero form-control', 'maxlength' => true]) ?>
@@ -77,5 +78,7 @@ use kartik\date\DatePicker;
 
 </div>
 <?php
-$this->registerJs("$(document).ready(function () {  $('.hora').inputmask('99:99'); }); ",3);
+$this->registerJsFile('@web/js/moment.min.js',['depends' => [\yii\web\JqueryAsset::className()]]); 
+$this->registerJsFile('@web/js/reservas.js',['depends' => [\yii\web\JqueryAsset::className()]]); 
+
 ?>

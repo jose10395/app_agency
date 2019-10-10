@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Sugerencias */
 
-$this->title = 'Create Sugerencias';
+$this->title = 'Escribenos tu sugerencia';
 $this->params['breadcrumbs'][] = ['label' => 'Sugerencias', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

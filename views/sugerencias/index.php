@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\SugerenciasSearch */
@@ -44,6 +45,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'asunto:ntext',
                 'detalle:ntext',
+                [
+                    'format'=>'raw',
+                    'header'=>'Adjunto',
+                    'value'=>function($data){
+                        $html="";
+                        if($data->archivo !=null){
+                            $ruta = Url::base(true).'/'.$data->archivo;
+                            $html = Html::a('<i class="fa fa-picture-o" aria-hidden="true"></i>',$ruta,['class'=>'btn btn-flat btn-xs btn-primary','target'=>'_blank']);
+                        }else{
+                            $html="";
+                        }
+                        return $html;
+                    }
+                ]
             //'created_at',
             //      ['class' => 'yii\grid\ActionColumn'],
             ],

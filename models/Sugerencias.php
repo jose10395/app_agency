@@ -12,6 +12,7 @@ use Yii;
  * @property string $detalle
  * @property string $created_at
  * @property int $usuariofk
+ * @property string $archivo
  */
 class Sugerencias extends \yii\db\ActiveRecord
 {
@@ -29,7 +30,7 @@ class Sugerencias extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['asunto', 'detalle'], 'string'],
+            [['asunto', 'detalle', 'archivo'], 'string'],
             [['created_at'], 'safe'],
             [['usuariofk'], 'integer'],
         ];
@@ -46,6 +47,7 @@ class Sugerencias extends \yii\db\ActiveRecord
             'detalle' => 'Detalle',
             'created_at' => 'Created At',
             'usuariofk' => 'Usuariofk',
+            'archivo' => 'Archivo',
         ];
     }
 }

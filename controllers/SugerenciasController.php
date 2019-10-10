@@ -64,6 +64,13 @@ class SugerenciasController extends Controller {
 
         if ($model->load(Yii::$app->request->post())) {
             $model->usuariofk = Yii::$app->user->getId();
+            $comprobante = \yii\web\UploadedFile::getInstance($model, 'archivo');
+            if ($comprobante != null) {
+                $nombre_archivo = time() . "-" . uniqid();
+                $model->archivo = \yii\web\UploadedFile::getInstance($model, 'archivo');
+                $model->archivo->saveAs("archivos/sugerencias/" . $nombre_archivo . "." . $model->archivo->extension);
+                $model->archivo = "archivos/sugerencias/" . $nombre_archivo . "." . $model->archivo->extension;
+            }
             $model->save();
             return $this->refresh();
         }
