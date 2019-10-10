@@ -56,7 +56,7 @@ $this->registerCss($css);
         <?= $this->render('_sidebar', []); ?>
         <div id="navbar-wrapper">
             <nav class="navbar">
-                <div class="container-fluid" style="z-index:2">
+                <div class="container-fluid" style="z-index:1">
                     <div class="navbar-header" style="display:none;">
                         <a href="<?= Url::to(['/']) ?>" class="simple-text logo-normal" style="margin-left:10px !important;" id="logo-responsive">
                             <?= Html::img("@web/imgs/logo_slogan.png", ['width' => '140']) ?>

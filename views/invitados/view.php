@@ -6,6 +6,7 @@ use kartik\grid\GridView;
 
 $this->title = "Lista de Invitados";
 \yii\web\YiiAsset::register($this);
+$isMaster = \webvimark\modules\UserManagement\models\User::hasRole(['MASTER']);
 ?>
 <div class="invitados-view">
 
@@ -15,43 +16,46 @@ $this->title = "Lista de Invitados";
 
 
         <?=
-        GridView::widget([
-            'dataProvider' => $dataProvider,
-            'columns' => [
-                    ['class' => 'yii\grid\SerialColumn'],
-                //'id',            
-                [
-                    'options' => [
-                        'width' => '30%'
-                    ],
-                    'label' => 'Apellidos',
-                    'value' => function($data) {
-                        return strtoupper($data->apellido_invitado);
-                    }
-                ],
+            GridView::widget([
+                'dataProvider' => $dataProvider,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn', 'options' => [
+                        'width' => '2%'
+                    ],],
+                    //'id',            
                     [
-                    'options' => [
-                        'width' => '30%'
+                        'options' => [
+                            'width' => '30%'
+                        ],
+                        'label' => 'Nombres Invitado',
+                        'value' => function ($data) {
+                            return strtoupper($data->nombres_invitado);
+                        }
                     ],
-                    'label' => 'Nombres',
-                    'value' => function($data) {
-                        return strtoupper($data->nombre_invitado);
-                    }
-                ],
+                        [
+                        'options' => [
+                            'width' => '30%'
+                        ],
+                        'label' => 'Motivo(s)',
+                        'value' => function($data) {
+                            return strtoupper($data->motivos);
+                        }
+                    ],
                     [
-                    'options' => [
-                        'width' => '40%'
+                        'visible' => ($isMaster) ? true : false,
+                        'options' => [
+                            'width' => '40%'
+                        ],
+                        'label' => 'Persona a visitar',
+                        'value' => function ($data) {
+                            $usuario = app\models\UserProfile::find()->where(['userid' => $data->usuariofk])->one();
+                            return strtoupper($usuario->apellidos . ' ' . $usuario->nombres);
+                        }
                     ],
-                    'label' => 'Persona a visitar',
-                    'value' => function($data) {
-                        $usuario = app\models\UserProfile::findOne($data->usuariofk);
-                        return strtoupper($usuario->apellidos . ' ' . $usuario->nombres);
-                    }
+                    //'created_at',
+                    //['class' => 'yii\grid\ActionColumn'],
                 ],
-            //'created_at',
-            //['class' => 'yii\grid\ActionColumn'],
-            ],
-        ]);
+            ]);
         ?>
     </div>
 </div>

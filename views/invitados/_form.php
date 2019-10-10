@@ -64,28 +64,35 @@ $form = ActiveForm::begin([
                     'name' => 'id',
                     'type' => unclead\multipleinput\MultipleInputColumn::TYPE_HIDDEN_INPUT
                 ],
+                //     [
+                //     'name' => 'cedula_invitado',
+                //     'title' => 'Cédula',
+                //     'options' => [
+                //         'class' => 'text-uppercase'
+                //     ],
+                //     'headerOptions' => [
+                //         'style' => [
+                //             'margin-bottom' => '20px !important',
+                //         ]
+                //     ]
+                // ],
+                //     [
+                //     'name' => 'apellido_invitado',
+                //     'title' => 'Apellidos',
+                //     'options' => [
+                //         'class' => 'text-uppercase'
+                //     ]
+                // ],
                     [
-                    'name' => 'cedula_invitado',
-                    'title' => 'Cédula',
-                    'options' => [
-                        'class' => 'text-uppercase'
-                    ],
-                    'headerOptions' => [
-                        'style' => [
-                            'margin-bottom' => '20px !important',
-                        ]
-                    ]
-                ],
-                    [
-                    'name' => 'apellido_invitado',
-                    'title' => 'Apellidos',
-                    'options' => [
-                        'class' => 'text-uppercase'
-                    ]
-                ],
-                    [
-                    'name' => 'nombre_invitado',
+                    'name' => 'nombres_invitado',
                     'title' => 'Nombres',
+                    'options' => [
+                        'class' => 'text-uppercase'
+                    ]
+                ],
+                [
+                    'name' => 'motivos',
+                    'title' => 'Motivo(s)',
                     'options' => [
                         'class' => 'text-uppercase'
                     ]

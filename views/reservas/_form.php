@@ -77,12 +77,5 @@ use kartik\date\DatePicker;
 
 </div>
 <?php
-$this->registerJs(
-    <<<JS
-       $(document).ready(function () {
-        $('.hora').inputmask('99:99');
-    }); 
-JS,
-    3
-);
+$this->registerJs("$(document).ready(function () {  $('.hora').inputmask('99:99'); }); ",3);
 ?>

@@ -13,6 +13,9 @@ use Yii;
  * @property int $usuariofk
  * @property string $created_at
  * @property string $cedula
+ * @property int $listainvitadosfk
+ * @property string $motivos
+ * @property string $nombres_invitado
  */
 class Invitados extends \yii\db\ActiveRecord
 {
@@ -30,8 +33,8 @@ class Invitados extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['apellido_invitado', 'nombre_invitado'], 'string'],
-            [['usuariofk'], 'integer'],
+            [['apellido_invitado', 'nombre_invitado', 'motivos', 'nombres_invitado'], 'string'],
+            [['usuariofk', 'listainvitadosfk'], 'integer'],
             [['created_at'], 'safe'],
             [['cedula'], 'string', 'max' => 50],
         ];
@@ -49,6 +52,9 @@ class Invitados extends \yii\db\ActiveRecord
             'usuariofk' => 'Usuariofk',
             'created_at' => 'Created At',
             'cedula' => 'Cedula',
+            'listainvitadosfk' => 'Listainvitadosfk',
+            'motivos' => 'Motivos',
+            'nombres_invitado' => 'Nombres Invitado',
         ];
     }
 }

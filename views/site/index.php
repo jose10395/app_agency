@@ -7,7 +7,7 @@ use yii\helpers\Url;
 $this->title = 'DCL II APP';
 ?>
 <div class="row">
-    <h2 style="margin:0px !important;font-family:'Modern No. 20'" class="text-center">Bienvenido <strong><?= $user->fullname ?></strong> a APP DCL</h2>
+    <h2 style="margin:0px !important;font-family:'Modern No. 20'" class="text-center">Bienvenido <strong><?= Yii::$app->user->identity->username ?></strong> a APP DCL</h2>
 </div>
 <hr>
 <!-- <div class="row">

@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\AuthAssignment;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -9,12 +10,14 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\MigracionUsuarios;
 use app\models\Urbanizacion;
 use app\models\UrbanizacionAreaSocial;
 use app\models\UrbanizacionEtapa;
 use app\models\UserProfile;
 use yii\helpers\Json;
-
+use webvimark\modules\UserManagement\models\User;
+use yii\base\Security;
 class SiteController extends Controller
 {
     /**
@@ -71,17 +74,17 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $user = UserProfile::find()->where(['userid'=>Yii::$app->user->getId()])->one();
-        
+        $user = UserProfile::find()->where(['userid' => Yii::$app->user->getId()])->one();
+
         //return $this->render('index');
         $urbanizaciones = (int) Urbanizacion::find()->count('*');
         $etapas = (int) UrbanizacionEtapa::find()->count('*');
         $areas_sociales = UrbanizacionAreaSocial::find()->count('*');
         return $this->render('index', [
-            'urbanizaciones'=>$urbanizaciones,
-            'etapas'=>$etapas,
-            'areas_sociales'=>$areas_sociales,
-            'user'=>$user
+            'urbanizaciones' => $urbanizaciones,
+            'etapas' => $etapas,
+            'areas_sociales' => $areas_sociales,
+            'user' => $user
         ]);
     }
 
@@ -153,23 +156,27 @@ class SiteController extends Controller
         $etapas = (int) UrbanizacionEtapa::find()->count('*');
         $areas_sociales = UrbanizacionAreaSocial::find()->count('*');
         return $this->render('config/admin', [
-            'urbanizaciones'=>$urbanizaciones,
-            'etapas'=>$etapas,
-            'areas_sociales'=>$areas_sociales
+            'urbanizaciones' => $urbanizaciones,
+            'etapas' => $etapas,
+            'areas_sociales' => $areas_sociales
         ]);
     }
-    
-    public function actionCanchas(){
-        return $this->render('design/_canchas',[]);
+
+    public function actionCanchas()
+    {
+        return $this->render('design/_canchas', []);
     }
-    public function actionAreasocial(){
-        return $this->render('design/_areasocial',[]);
+    public function actionAreasocial()
+    {
+        return $this->render('design/_areasocial', []);
     }
-    public function actionCuenta(){
-        return $this->render('design/_estadocuenta',[]);
+    public function actionCuenta()
+    {
+        return $this->render('design/_estadocuenta', []);
     }
-    public function actionPagos(){
-        return $this->render('design/_pagos',[]);
+    public function actionPagos()
+    {
+        return $this->render('design/_pagos', []);
     }
 
     public function actionEtapas()
@@ -186,5 +193,57 @@ class SiteController extends Controller
             }
         }
         echo Json::encode(['output' => '', 'selected' => 0]);
+    }
+
+    public function actionLoad()
+    {
+        $migracion = MigracionUsuarios::find()
+        ->select(['USUARIO',
+        "(SUBSTRING_INDEX(NOMBRE,(SUBSTRING_INDEX(NOMBRE,' ',-2)),1)) apellidos",
+        "(SUBSTRING_INDEX(NOMBRE,' ',-2)) nombres",
+        "substring_index(correos,';',1) correo",
+        "replace(substring_index(correos,(substring_index(correos,';',1)), -1),';','') correo2"])
+        ->asArray()->all();
+        foreach ($migracion as $key => $value) {
+            $model = new User();
+            $security = new Security();
+            $perfil = new UserProfile();
+            $model->username = $value['USUARIO'];
+            $model->auth_key = $value['USUARIO'];
+            $model->password_hash = $security->generatePasswordHash($value['USUARIO']);
+            $model->created_at = date('Y-m-d H:i:s');
+            $model->updated_at = date('Y-m-d H:i:s');
+            if (!$model->save()) {
+                print_r($model->getErrors());
+            }
+        
+        // $perfil->load(Yii::$app->request->post());
+         $perfil->userid = $model->id;
+         $perfil->email = $value['correo'];
+        $perfil->apellidos = $value['apellidos'];
+        $perfil->nombres = $value['nombres'];
+        $perfil->email_opcional = $value['correo2'];
+        $perfil->urbanizacion_etapafk=9;
+            $perfil->save();
+
+        
+            $roles = new AuthAssignment();
+            $roles->user_id = $model->id;
+            $roles->item_name = 'RESIDENTE';
+            $roles->save();
+        }
+
+        return;
+        
+        // $perfil->load(Yii::$app->request->post());
+        // $perfil->userid = $model->id;
+        // $perfil->email = $model->email;
+        // $perfil->save();
+
+        // $rol_datos = Yii::$app->request->post('rol_usuario');
+        // $roles = new AuthAssignment();
+        // $roles->user_id = $model->id;
+        // $roles->item_name = $rol_datos;
+        // $roles->save();
     }
 }

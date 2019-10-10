@@ -51,7 +51,7 @@ $isMaster = User::hasRole(['MASTER']);
                 //         ['label' => 'Area Social', 'url' => ['/site/areasocial'], 'icon' => 'group'],
                 //     ]
                 // ],
-                ($isUsuario || $isMaster) ? ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">credit_card</i>Estado de Cuenta', 'url' => ['/site/cuenta'], 'icon' => 'credit_card']:false,
+                ($isUsuario) ? ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">credit_card</i>Estado de Cuenta', 'url' => ['/site/cuenta'], 'icon' => 'credit_card']:false,
                 // [
                 //     'label' => 'Revisar', 'url' => ['/'], 'icon' => 'assignment_turned_in',
                 //     'template' => '<a class="tree-toggle" href="{url}"><div class="row">                               
