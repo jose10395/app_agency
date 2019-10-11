@@ -12,8 +12,11 @@ $isMaster = User::hasRole(['MASTER']);
 <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
         <div class="logo">
-            <a href="<?= Url::to(['/']) ?>" class="simple-text logo-normal">
+            <a href="<?= Url::to(['/']) ?>" class="simple-text logo_sidebar_normal">
                 <?= Html::img("@web/imgs/logo_slogan.png", ['width' => '140']) ?>
+            </a>
+            <a href="<?= Url::to(['/']) ?>" class="simple-text pull-left logo_sidebar_compress" style="display:none;margin-left:10px !important">
+                <?= Html::img("@web/imgs/favicon_dcl.png", ['width' => '50px', 'height' => '45px']) ?>
             </a>
         </div>
     </div>
@@ -33,12 +36,12 @@ $isMaster = User::hasRole(['MASTER']);
                                 <div class="col-md-12 col-xs-12" style="margin-top:12px !important">{label}</></div></div></a>',
             'submenuTemplate' => "\n<ul class='nav tree' {show}>\n{items}\n</ul>\n",
             'items' => [
-                ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">home</i>Inicio', 'url' => ['/site/index'], 'icon' => 'home'],
-                ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">assignment</i>Novedades', 'url' => ['/novedades/index'], 'icon' => 'dashboard'],
-                ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">dashboard</i>Etapas', 'url' => ['/urbanizacion-etapa/index'], 'icon' => 'dashboard'],
-                ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">account_circle</i>Usuarios', 'url' => ['/user-management/user/'], 'icon' => 'account_circle'],
-                ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">list_alt</i>Listado de Invitados', 'url' => ['/invitados/index'], 'icon' => 'list_alt'],
-                ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">event_available</i>Reservas', 'url' => ['/reservas/index'], 'icon' => 'list_alt'],
+                ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">home</i><span class="label-sidebar">Inicio</span>', 'url' => ['/site/index'], 'icon' => 'home'],
+                ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">assignment</i><span class="label-sidebar">Novedades</span>', 'url' => ['/novedades/index'], 'icon' => 'dashboard'],
+                ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">dashboard</i><span class="label-sidebar">Etapas</span>', 'url' => ['/urbanizacion-etapa/index'], 'icon' => 'dashboard'],
+                ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">account_circle</i><span class="label-sidebar">Usuarios</span>', 'url' => ['/user-management/user/'], 'icon' => 'account_circle'],
+                ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">list_alt</i><span class="label-sidebar">Listado de Invitados</span>', 'url' => ['/invitados/index'], 'icon' => 'list_alt'],
+                ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">event_available</i><span class="label-sidebar">Reservas</span>', 'url' => ['/reservas/index'], 'icon' => 'list_alt'],
                 // [
                 //     'label' => 'Reservas', 'url' => ['/'], 'icon' => 'event_available',
                 //     'template' => '<a class="tree-toggle" href="{url}"><div class="row">                               
@@ -51,7 +54,7 @@ $isMaster = User::hasRole(['MASTER']);
                 //         ['label' => 'Area Social', 'url' => ['/site/areasocial'], 'icon' => 'group'],
                 //     ]
                 // ],
-                ($isUsuario) ? ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">credit_card</i>Estado de Cuenta', 'url' => ['/site/cuenta'], 'icon' => 'credit_card']:false,
+                //($isUsuario) ? ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">credit_card</i>Estado de Cuenta', 'url' => ['/site/cuenta'], 'icon' => 'credit_card']:false,
                 // [
                 //     'label' => 'Revisar', 'url' => ['/'], 'icon' => 'assignment_turned_in',
                 //     'template' => '<a class="tree-toggle" href="{url}"><div class="row">                               
@@ -65,8 +68,8 @@ $isMaster = User::hasRole(['MASTER']);
                 //     ]
                 // ],
                 // ['label' => 'Pagos', 'url' => ['/site/pagos'], 'icon' => 'attach_money'],
-                ($isUsuario) ? ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">feedback</i>Sugerencias', 'url' => ['/sugerencias/create'], 'icon' => 'feedback'] : ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">feedback</i>Sugerencias', 'url' => ['/sugerencias/index'], 'icon' => 'feedback'],
-                ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">meeting_room</i>Salir', 'url' => ['site/logout'], 'icon' => 'meeting_room', ['data-method' => 'post']]
+                ($isUsuario) ? ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">feedback</i><span class="label-sidebar">Sugerencias</span>', 'url' => ['/sugerencias/create'], 'icon' => 'feedback'] : ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">feedback</i>Sugerencias', 'url' => ['/sugerencias/index'], 'icon' => 'feedback'],
+                ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">meeting_room</i><span class="label-sidebar">Salir</span>', 'url' => ['site/logout'], 'icon' => 'meeting_room', ['data-method' => 'post']]
             ],
         ]);
     ?>

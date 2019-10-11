@@ -54,56 +54,9 @@ $this->registerCss($css);
 
     <div id="wrapper">
         <?= $this->render('_sidebar', []); ?>
-        <div id="navbar-wrapper">
-            <nav class="navbar">
-                <div class="container-fluid" style="z-index:1">
-                    <div class="navbar-header" style="display:none;">
-                        <a href="<?= Url::to(['/']) ?>" class="simple-text logo-normal" style="margin-left:10px !important;" id="logo-responsive">
-                            <?= Html::img("@web/imgs/logo_slogan.png", ['width' => '140']) ?>
-                        </a>
-                        <a href="#" class="navbar-brand" id="sidebar-toggle" style="margin-right:10px !important;"><i class="fa fa-bars"></i></a>
-                    </div>
-                    <div class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav navbar-right">
-                            <?php if (Yii::$app->user->issuperadmin) : ?>
-                            <li>
-                                <a href="<?= Url::to(['/site/admin']) ?>" class="dropdown">
-                                    <i class="material-icons">build</i>
-                                </a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-users" aria-hidden="true"></i>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><?= Html::a('Usuarios', ['/user-management/user']) ?></li>
-                                    <li><?= Html::a('Roles', ['/user-management/role/index']) ?></li>
-                                    <li><?= Html::a('Permisos', ['/user-management/permission/index']) ?></li>
-                                    <li><?= Html::a('Grupos de Permisos', ['/user-management/auth-item-group/index']) ?></li>
-                                    <li><?= Html::a('Visit Log', ['/user-management/user-visit-log/index']) ?></li>
-                                </ul>
-                            </li>
-                            <?php endif; ?>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <?= Html::a('<span style="font-size:14px">Cambiar Contraseña</span>', ['/user-management/user/change-password','id'=>Yii::$app->user->getId()]) ?>
-                                    </li>
-                                    <li>
-                                        <?= Html::a('<span style="font-size:14px">Salir</span>&nbsp;<i style="font-size:18px" class="fa fa-sign-in pull-right"></i>', ['/site/logout', ['linkOptions' => ['data-method' => 'post']]]) ?>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
 
         <div class="main-panel" style="width:100%;z-index:1;height:600px;overflow:auto">
+        <?= $this->render('_nav', []); ?>        
             <div class="content" style="padding:0px !important;">
                 <div class="container-fluid">
                     <?= $content ?>
