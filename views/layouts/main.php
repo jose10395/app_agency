@@ -32,6 +32,17 @@ html, body {
 CSS;
 
 $this->registerCss($css);
+
+$opciones_inicio = [
+    '/web/index.php/site/index',
+    '/dcl/web/index.php/site/index',
+    '/web/index.php',
+    '/web/index.php/',
+    '/dcl/web/index.php',
+    '/dcl/web/index.php/',
+];
+$url_request = Yii::$app->request->url;
+$isHome = in_array($url_request,$opciones_inicio);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -52,11 +63,23 @@ $this->registerCss($css);
 <body>
     <?php $this->beginBody() ?>
 
-    <div id="wrapper">
+    <?php if($isHome):?>
+    <div>            
+        <div class="main-panel" style="width:100% !important;z-index:1;height:600px;overflow:auto;">
+        <?= $this->render('_nav', ['isHome'=>$isHome]); ?>        
+            <div class="content" style="padding:0px !important;">
+                <div class="container-fluid">
+                    <?= $content ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?= $this->render('_footer_home', []); ?>
+    <?php else:?>
+    <div id="wrapper">            
         <?= $this->render('_sidebar', []); ?>
-
-        <div class="main-panel" style="width:100%;z-index:1;height:600px;overflow:auto">
-        <?= $this->render('_nav', []); ?>        
+        <div class="main-panel" style="width:100% !important;z-index:1;height:600px;overflow:auto;">
+        <?= $this->render('_nav', ['isHome'=>$isHome]); ?>
             <div class="content" style="padding:0px !important;">
                 <div class="container-fluid">
                     <?= $content ?>
@@ -65,6 +88,8 @@ $this->registerCss($css);
         </div>
     </div>
     <?= $this->render('_footer', []); ?>
+    <?php endif;?>
+
     <?php $this->endBody() ?>
 </body>
 

@@ -8,10 +8,19 @@ use yii\helpers\Html;
 use ramosisw\CImaterial\widgets\Menu;
 use yii\helpers\Url;
 use webvimark\modules\UserManagement\models\User;
+
 $isMaster = User::hasRole(['MASTER']);
+
 ?>
 <div id="navbar-wrapper">
     <div class="container-fluid navbar" style="z-index:2">
+        <?php if ($isHome) : ?>
+            <!-- <div class="navbar-header" style="margin-left:0px !important">
+                <a href="<?= Url::to(['/']) ?>" class="simple-text logo-normal" style="margin-left:10px !important;" id="logo-responsive">
+                    <?= Html::img("@web/imgs/logo_slogan.png", ['width' => '140']) ?>
+                </a>
+            </div> -->
+        <?php endif; ?>
         <div class="navbar-header" style="display:none;margin-left:0px !important">
             <a href="<?= Url::to(['/']) ?>" class="simple-text logo-normal" style="margin-left:10px !important;" id="logo-responsive">
                 <?= Html::img("@web/imgs/logo_slogan.png", ['width' => '140']) ?>
@@ -41,12 +50,17 @@ $isMaster = User::hasRole(['MASTER']);
                 <?php endif; ?>
                 <li class="<?= ($isMaster ? 'hide' : '') ?>">
                     <a href="<?= Url::to(['/site/cuenta']) ?>" class="dropdown" title="Estado de cuenta">
-                        <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
+                        
+                        <h4 class="font-light counter m-b-0">
+                        Estado de Cuenta&nbsp;&nbsp;&nbsp;<i class="fa fa-credit-card-alt" aria-hidden="true"></i>
+                        </h4>
                     </a>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Opciones de Usuario">
-                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                        <h4 class="font-light counter m-b-0">
+                            <?= Yii::$app->user->identity->username ?>&nbsp;&nbsp;&nbsp;<i class="fa fa-user-circle" aria-hidden="true"></i>
+                        </h4>
                     </a>
                     <ul class="dropdown-menu">
                         <li>

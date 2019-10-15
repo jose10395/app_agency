@@ -3,13 +3,33 @@
 /* @var $this yii\web\View */
 
 use yii\helpers\Url;
+use yii\bootstrap\Html;
 
 $this->title = 'DCL II APP';
+$items = [
+    ['url' => Url::to(['/urbanizacion']), 'title' => 'Urbanizaciones', 'icon' => 'location_city', 'color' => '']
+];
 ?>
 <div class="row">
     <h2 style="margin:0px !important;font-family:'Modern No. 20'" class="text-center">Bienvenido <strong><?= Yii::$app->user->identity->username ?></strong> a APP DCL</h2>
 </div>
 <hr>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="row text-center">
+
+            <?= Html::a('<i class="material-icons" style="font-size:50px">assignment</i><br><br>Novedades', ['/novedades/index'], ['class' => 'btn btn-primary', 'style' => 'margin-left:5px;width:30%']) ?>
+            <?= Html::a('<i class="material-icons" style="font-size:50px">dashboard</i><br><br>Etapas', ['/urbanizacion-etapa/index'], ['class' => 'btn btn-primary', 'style' => 'margin-left:5px;width:30%']) ?>
+            <?= Html::a('<i class="material-icons" style="font-size:50px">list_alt</i><br><br><span class="hidden-xs">Listado de</span> Invitados', ['/invitados/index'], ['class' => 'btn btn-primary', 'style' => 'margin-left:5px;width:30%']) ?>
+            <?= Html::a('<i class="material-icons" style="font-size:50px">event_available</i><br><br>Reservas', ['/reservas/index'], ['class' => 'btn btn-primary', 'style' => 'margin-left:5px;width:30%']) ?>
+            <?= Html::a('<i class="material-icons" style="font-size:50px">feedback</i><br><br>Sugerencias', ['/sugerencias/index'], ['class' => 'btn btn-primary', 'style' => 'margin-left:5px;width:30%']) ?>
+            <?= Html::a('<i class="material-icons" style="font-size:50px">meeting_room</i><br><br>Salir', ['/site/logout'], ['class' => 'btn btn-primary', 'style' => 'margin-left:5px;width:30%','linkOptions'=>['data-method' => 'post']]) ?>
+
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
 <!-- <div class="row">
     <div class="col-md-4">
         <div class="card card-stats">
