@@ -12,8 +12,8 @@ use webvimark\modules\UserManagement\models\User;
 $isMaster = User::hasRole(['MASTER']);
 
 ?>
-<div id="navbar-wrapper">
-    <div class="container-fluid navbar" style="z-index:2">
+<div id="navbar-wrapper" style="margin-top:0">
+    <div class="container-fluid navbar" style="z-index:2;height:50px;">
         <?php if ($isHome) : ?>
             <!-- <div class="navbar-header" style="margin-left:0px !important">
                 <a href="<?= Url::to(['/']) ?>" class="simple-text logo-normal" style="margin-left:10px !important;" id="logo-responsive">

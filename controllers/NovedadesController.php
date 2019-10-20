@@ -48,7 +48,7 @@ class NovedadesController extends Controller
         }
 
         $dataProvider =  new ActiveDataProvider([
-            'query' => $query
+            'query' => $query 
         ]);
         return $this->render('index', [
             'dataProvider' => $dataProvider,
@@ -81,11 +81,18 @@ class NovedadesController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             //$user = UserProfile::find()->where(['userid' => Yii::$app->user->getId()])->one();
             $comprobante = \yii\web\UploadedFile::getInstance($model, 'archivo');
+            $imagen = \yii\web\UploadedFile::getInstance($model, 'imagen');
             if ($comprobante != null) {
                 $nombre_archivo = time() . "-" . uniqid();
                 $model->archivo = \yii\web\UploadedFile::getInstance($model, 'archivo');
                 $model->archivo->saveAs("archivos/novedades/" . $nombre_archivo . "." . $model->archivo->extension);
                 $model->archivo = "archivos/novedades/" . $nombre_archivo . "." . $model->archivo->extension;
+            }
+            if ($imagen != null) {
+                $nombre_archivo = time() . "-" . uniqid();
+                $model->imagen = \yii\web\UploadedFile::getInstance($model, 'imagen');
+                $model->imagen->saveAs("archivos/novedades/" . $nombre_archivo . "." . $model->imagen->extension);
+                $model->imagen = "archivos/novedades/" . $nombre_archivo . "." . $model->imagen->extension;
             }
             //$model->urbanizacion_etapafk = $user->urbanizacion_etapafk;
             if (!$model->save()) {

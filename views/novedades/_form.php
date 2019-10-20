@@ -45,6 +45,7 @@ use yii\helpers\Url;
             </div>
         </div>
 
+        
         <?=
             $form->field($model, 'archivo')->widget(FileInput::classname(), [
                 'options' => ['accept' => 'application/pdf'],
@@ -55,6 +56,17 @@ use yii\helpers\Url;
                     'showUpload' => false
                 ]
             ]);
+        ?>
+        <?=
+            $form->field($model, 'imagen')->widget(FileInput::classname(), [
+                'options' => ['accept' => 'image/*'],
+                'pluginOptions' => [
+                    'showPreview' => false,
+                    'showCaption' => true,
+                    'showRemove' => true,
+                    'showUpload' => false
+                ]
+            ])->label('Imagen', ['style' => 'font-size:14px']);
         ?>
 
         <div class=" form-group">

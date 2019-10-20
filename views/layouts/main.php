@@ -53,7 +53,7 @@ $isHome = in_array($url_request,$opciones_inicio);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/ico" href="./favicondcl.ico">
-
+    <?php $this->registerCssFile("@web/css/fancybox.min.css") ?>
     <?php $this->registerCsrfMetaTags() ?>
     <!-- <title><?= Html::encode($this->title) ?></title> -->
     <title>DCL II APP</title>
@@ -65,7 +65,7 @@ $isHome = in_array($url_request,$opciones_inicio);
 
     <?php if($isHome):?>
     <div>            
-        <div class="main-panel" style="width:100% !important;z-index:1;height:600px;overflow:auto;">
+        <div class="main-panel" style="width:100% !important;z-index:1;height:650px;overflow:auto;">
         <?= $this->render('_nav', ['isHome'=>$isHome]); ?>        
             <div class="content" style="padding:0px !important;">
                 <div class="container-fluid">
@@ -78,7 +78,7 @@ $isHome = in_array($url_request,$opciones_inicio);
     <?php else:?>
     <div id="wrapper">            
         <?= $this->render('_sidebar', []); ?>
-        <div class="main-panel" style="width:100% !important;z-index:1;height:600px;overflow:auto;">
+        <div class="main-panel" style="width:100% !important;z-index:1;height:650px;overflow:auto;">
         <?= $this->render('_nav', ['isHome'=>$isHome]); ?>
             <div class="content" style="padding:0px !important;">
                 <div class="container-fluid">
@@ -92,6 +92,6 @@ $isHome = in_array($url_request,$opciones_inicio);
 
     <?php $this->endBody() ?>
 </body>
-
+<?php $this->registerJsFile("@web/js/fancybox.min.js")?>
 </html>
 <?php $this->endPage() ?>

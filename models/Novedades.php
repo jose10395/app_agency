@@ -12,6 +12,7 @@ use Yii;
  * @property string $descripcion
  * @property string $archivo
  * @property string $created_at
+ * @property string $imagen
  */
 class Novedades extends \yii\db\ActiveRecord
 {
@@ -30,7 +31,7 @@ class Novedades extends \yii\db\ActiveRecord
     {
         return [
             [['urbanizacion_etapafk'], 'integer'],
-            [['descripcion', 'archivo'], 'string'],
+            [['descripcion', 'archivo', 'imagen'], 'string'],
             [['created_at'], 'safe'],
         ];
     }
@@ -46,6 +47,7 @@ class Novedades extends \yii\db\ActiveRecord
             'descripcion' => 'Descripcion',
             'archivo' => 'Archivo',
             'created_at' => 'Created At',
+            'imagen' => 'Imagen',
         ];
     }
 }
