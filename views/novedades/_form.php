@@ -55,7 +55,7 @@ use yii\helpers\Url;
                     'showRemove' => true,
                     'showUpload' => false
                 ]
-            ]);
+            ])->label('Archivo',['style' => 'font-size:14px']);
         ?>
         <?=
             $form->field($model, 'imagen')->widget(FileInput::classname(), [

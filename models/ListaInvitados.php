@@ -10,6 +10,8 @@ use Yii;
  * @property int $id
  * @property string $fecha
  * @property string $created_at
+ * @property int $usuariofk
+ * @property string $notas
  */
 class ListaInvitados extends \yii\db\ActiveRecord
 {
@@ -28,6 +30,8 @@ class ListaInvitados extends \yii\db\ActiveRecord
     {
         return [
             [['fecha', 'created_at'], 'safe'],
+            [['usuariofk'], 'integer'],
+            [['notas'], 'string'],
         ];
     }
 
@@ -40,6 +44,8 @@ class ListaInvitados extends \yii\db\ActiveRecord
             'id' => 'ID',
             'fecha' => 'Fecha',
             'created_at' => 'Created At',
+            'usuariofk' => 'Usuariofk',
+            'notas' => 'Notas',
         ];
     }
 }

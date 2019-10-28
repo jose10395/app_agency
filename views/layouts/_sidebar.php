@@ -8,6 +8,8 @@ use webvimark\modules\UserManagement\models\User;
 
 $isUsuario = User::hasRole(['RESIDENTE']);
 $isMaster = User::hasRole(['MASTER']);
+
+$urlSugerencias = ($isUsuario) ? ['sugerencias/create'] : ['sugerencias/index'];
 ?>
 <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
@@ -68,7 +70,8 @@ $isMaster = User::hasRole(['MASTER']);
                 //     ]
                 // ],
                 // ['label' => 'Pagos', 'url' => ['/site/pagos'], 'icon' => 'attach_money'],
-                ($isUsuario) ? ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">feedback</i><span class="label-sidebar">Sugerencias</span>', 'url' => ['/sugerencias/create'], 'icon' => 'feedback'] : ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">feedback</i>Sugerencias', 'url' => ['/sugerencias/index'], 'icon' => 'feedback'],
+                //($isUsuario) ? ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">feedback</i><span class="label-sidebar">Sugerencias</span>', 'url' => ['/sugerencias/create'], 'icon' => 'feedback'] : ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">feedback</i>Sugerencias', 'url' => ['/sugerencias/index'], 'icon' => 'feedback'],
+                ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">feedback</i><span class="label-sidebar">Sugerencias</span>', 'url' =>$urlSugerencias, 'icon' => 'feedback'],
                 ['label' => '<i class="material-icons pull-left" style="margin-top:5px !important;margin-bottom:12px !important">meeting_room</i><span class="label-sidebar">Salir</span>', 'url' => ['site/logout'], 'icon' => 'meeting_room', ['data-method' => 'post']]
             ],
         ]);

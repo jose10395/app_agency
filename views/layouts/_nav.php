@@ -15,18 +15,19 @@ $isMaster = User::hasRole(['MASTER']);
 <div id="navbar-wrapper" style="margin-top:0">
     <div class="container-fluid navbar" style="z-index:2;height:50px;">
         <?php if ($isHome) : ?>
-            <!-- <div class="navbar-header" style="margin-left:0px !important">
+            <div class="navbar-header" style="margin-left:0px !important">
                 <a href="<?= Url::to(['/']) ?>" class="simple-text logo-normal" style="margin-left:10px !important;" id="logo-responsive">
                     <?= Html::img("@web/imgs/logo_slogan.png", ['width' => '140']) ?>
                 </a>
-            </div> -->
-        <?php endif; ?>
+            </div>
+        <?php else: ?>
         <div class="navbar-header" style="display:none;margin-left:0px !important">
             <a href="<?= Url::to(['/']) ?>" class="simple-text logo-normal" style="margin-left:10px !important;" id="logo-responsive">
                 <?= Html::img("@web/imgs/logo_slogan.png", ['width' => '140']) ?>
             </a>
             <a href="#" class="navbar-brand" id="sidebar-toggle" style="margin-right:20px !important;"><i class="fa fa-bars"></i></a>
         </div>
+        <?php endif;?>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right" style="margin-right:0px !important">
                 <?php if (Yii::$app->user->issuperadmin) : ?>
@@ -73,5 +74,6 @@ $isMaster = User::hasRole(['MASTER']);
                 </li>
             </ul>
         </div>
+        
     </div>
 </div>

@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+
 use kartik\date\DatePicker;
 
 \yii\widgets\MaskedInputAsset::register($this);
@@ -9,7 +10,7 @@ use kartik\date\DatePicker;
 ?>
 
 <div class="reservas-form">
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['class' => 'noenter']]); ?>
     <div class="row" style="margin:0px !important">
         <div class="col-md-1">
             <div class="form-group">
@@ -62,23 +63,29 @@ use kartik\date\DatePicker;
             ?>
         </div>
         <div class="col-md-2">
-            <?= $form->field($model, 'hora_inicio')->textInput(['class' => 'hora form-control','onchange'=>'sumarhora.call(this)']) ?>
+            <?= $form->field($model, 'hora_inicio')->textInput(['class' => 'hora form-control', 'onchange' => 'sumarhora.call(this)']) ?>
         </div>
         <div class="col-md-2">
-            <?= $form->field($model, 'hora_fin')->textInput(['class' => 'hora form-control','id'=>'hora_fin']) ?>
+            <?= $form->field($model, 'hora_fin')->textInput(['class' => 'hora form-control', 'id' => 'hora_fin']) ?>
         </div>
         <div class="col-md-3">
             <?= $form->field($model, 'celular')->textInput(['class' => 'solonumero form-control', 'maxlength' => true]) ?>
         </div>
     </div>
-    <div class="form-group">
-        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
+
+    <div class="row" style="margin:0px !important;padding:10px">
+        <div class="form-group">
+            <?= Html::checkbox('terminos', false, ['class'=>'terminos']) ?>
+            <span>Aceptar <a href="javascript:" class="link" style="color:#337ab7 !important">Términos y Condiciones</a></span><br>
+            <?= Html::submitButton('Guardar', ['class' => 'btn btn-success', 'disabled' => true,'id'=>'btnsavereserva']) ?>
+        </div>
     </div>
+
     <?php ActiveForm::end(); ?>
 
 </div>
 <?php
-$this->registerJsFile('@web/js/moment.min.js',['depends' => [\yii\web\JqueryAsset::className()]]); 
-$this->registerJsFile('@web/js/reservas.js',['depends' => [\yii\web\JqueryAsset::className()]]); 
+$this->registerJsFile('@web/js/moment.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('@web/js/reservas.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 ?>

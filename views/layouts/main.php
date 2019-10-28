@@ -36,13 +36,14 @@ $this->registerCss($css);
 $opciones_inicio = [
     '/web/index.php/site/index',
     '/dcl/web/index.php/site/index',
+    '/dcl/web/index.php/site/index/',
     '/web/index.php',
     '/web/index.php/',
     '/dcl/web/index.php',
     '/dcl/web/index.php/',
 ];
 $url_request = Yii::$app->request->url;
-$isHome = in_array($url_request,$opciones_inicio);
+$isHome = in_array($url_request, $opciones_inicio);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -52,7 +53,8 @@ $isHome = in_array($url_request,$opciones_inicio);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/ico" href="./favicondcl.ico">
+    <!-- <link rel="icon" type="image/ico" href="./favicondcl.ico"> -->
+    <link rel="shortcut icon" href="<?php echo Yii::$app->request->baseUrl; ?>/favicondcl.ico" type="image/x-icon" />
     <?php $this->registerCssFile("@web/css/fancybox.min.css") ?>
     <?php $this->registerCsrfMetaTags() ?>
     <!-- <title><?= Html::encode($this->title) ?></title> -->
@@ -63,35 +65,34 @@ $isHome = in_array($url_request,$opciones_inicio);
 <body>
     <?php $this->beginBody() ?>
 
-    <?php if($isHome):?>
-    <div>            
-        <div class="main-panel" style="width:100% !important;z-index:1;height:650px;overflow:auto;">
-        <?= $this->render('_nav', ['isHome'=>$isHome]); ?>        
-            <div class="content" style="padding:0px !important;">
-                <div class="container-fluid">
+    <?php if ($isHome) : ?>
+        <div>
+            <div class="main-panel" style="width:100% !important;z-index:1;height:650px;overflow:auto;">
+                <?= $this->render('_nav', ['isHome' => $isHome]); ?>
+                <div class="content" style="width:100%;padding:0px !important;height: calc(100% - 70px) !important;display: flex;flex-direction: column;">
                     <?= $content ?>
                 </div>
             </div>
         </div>
-    </div>
-    <?= $this->render('_footer_home', []); ?>
-    <?php else:?>
-    <div id="wrapper">            
-        <?= $this->render('_sidebar', []); ?>
-        <div class="main-panel" style="width:100% !important;z-index:1;height:650px;overflow:auto;">
-        <?= $this->render('_nav', ['isHome'=>$isHome]); ?>
-            <div class="content" style="padding:0px !important;">
-                <div class="container-fluid">
-                    <?= $content ?>
+        <?= $this->render('_footer_home', []); ?>
+    <?php else : ?>
+        <div id="wrapper">
+            <?= $this->render('_sidebar', []); ?>
+            <div class="main-panel" style="width:100% !important;z-index:1;height:650px;overflow:auto;">
+                <?= $this->render('_nav', ['isHome' => $isHome]); ?>
+                <div class="content" style="padding:0px !important;">
+                    <div class="container-fluid">
+                        <?= $content ?>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <?= $this->render('_footer', []); ?>
-    <?php endif;?>
+        <?= $this->render('_footer', []); ?>
+    <?php endif; ?>
 
     <?php $this->endBody() ?>
 </body>
-<?php $this->registerJsFile("@web/js/fancybox.min.js")?>
+<?php $this->registerJsFile("@web/js/fancybox.min.js") ?>
+
 </html>
 <?php $this->endPage() ?>

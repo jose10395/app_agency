@@ -68,6 +68,7 @@ class InvitadosController extends Controller {
 
             $lista->load(Yii::$app->request->post());
             $lista->usuariofk = Yii::$app->user->identity->getId();
+            $lista->notas = strtoupper($lista->notas);
             $lista->save();
 
             $invitados = \app\models\Model::createMultiple(Invitados::class);
